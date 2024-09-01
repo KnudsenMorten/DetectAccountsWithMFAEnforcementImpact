@@ -298,6 +298,7 @@
         Else
             {
                 write-host "No issues found !" -ForegroundColor Green
+                write-host ""
             }
 
     #--------------------------------------------------------------------------------------------------------
@@ -317,6 +318,7 @@
         Else
             {
                 write-host "No issues found !" -ForegroundColor Green
+                write-host ""
             }
 
     #--------------------------------------------------------------------------------------------------------
@@ -339,6 +341,7 @@
         Else
             {
                 write-host "No issues found !" -ForegroundColor Green
+                write-host ""
             }
 
 
