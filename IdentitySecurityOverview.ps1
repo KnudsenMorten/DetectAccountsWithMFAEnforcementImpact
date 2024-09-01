@@ -321,17 +321,20 @@
 
     #--------------------------------------------------------------------------------------------------------
     # INVESTIGATION NEEDED: Accounts that are missing MFA registration - SignIn during Last 90 days - Account Active - MFA not capable
-        $MissingMFA_ActiveAccount_RecentSignIns_MissingLicense = $UserInfoArray_Scoped | Where-Object { ( (!($_.IsMfaRegistered) -and (!($_.SignInsDetectedMSAdminPortals)) -and (!($_.IsMfaCapable)) -and ($_.Cloud_LastSignInDateTime -gt $DaysLastSignInCheck) ) ) }
+    # MFA NOT capable: Users registered and enabled for a strong authentication method in Microsoft Entra ID. Either a user or an admin may register an authentication method on behalf of a user. 
+    # Authentication methods are enabled by authentication method policy or multifactor authentication service settings
+
+        $MissingMFA_ActiveAccount_RecentSignIns_MfaNotCapable = $UserInfoArray_Scoped | Where-Object { ( (!($_.IsMfaRegistered) -and (!($_.SignInsDetectedMSAdminPortals)) -and (!($_.IsMfaCapable)) -and ($_.Cloud_LastSignInDateTime -gt $DaysLastSignInCheck) ) ) }
 
         write-host ""
-        write-host "Check 3: Active account, MFA missing, MFA not capable (missing license), cloud sign-ins during last 90 days, no sign-in events against MS admin portals"
+        write-host "Check 3: Active account, MFA missing, MFA not capable, cloud sign-ins during last 90 days, no sign-in events against MS admin portals"
         
-        If (!($MissingMFA_ActiveAccount_RecentSignIns_MissingLicense))
+        If ($MissingMFA_ActiveAccount_RecentSignIns_MfaNotCapable)
             {
                 write-host ""
-                Write-host "Users ($(($MissingMFA_ActiveAccount_RecentSignIns_MissingLicense | measure-object).count)) that MAY be impacted by MFA enforcement if account may do interactive login against MS admin Portals:" -ForegroundColor Yellow
+                Write-host "Users ($(($MissingMFA_ActiveAccount_RecentSignIns_MfaNotCapable | measure-object).count)) that MAY be impacted by MFA enforcement if account may do interactive login against MS admin Portals:" -ForegroundColor Yellow
 
-                $MissingMFA_ActiveAccount_RecentSignIns_MissingLicense | Select-object DisplayName, UserPrincipalName | Out-Default
+                $MissingMFA_ActiveAccount_RecentSignIns_MfaNotCapable | Select-object DisplayName, UserPrincipalName | Out-Default
             }
         Else
             {
