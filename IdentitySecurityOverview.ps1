@@ -362,14 +362,14 @@
     $Target = "Users_Scoped"
     $UserInfoArray_Scoped | Export-Excel -Path $File_Overview -WorksheetName $Target -AutoFilter -AutoSize -BoldTopRow -tablename $Target -tablestyle medium9
 
-    $Target = "ImpactMFAEnforcement"
-    $ImpactMFAEnforcement | Export-Excel -Path $File_Overview -WorksheetName $Target -AutoFilter -AutoSize -BoldTopRow -tablename $Target -tablestyle medium9
+    $Target = "Check1_Impact_MFA_Enforcement"
+    $Impact_MFA_Enforcement | Export-Excel -Path $File_Overview -WorksheetName $Target -AutoFilter -AutoSize -BoldTopRow -tablename $Target -tablestyle medium9
 
-    $Target = "Missing_MFA_Missing_License"
-    $MissingMFAMissingLicense | Export-Excel -Path $File_Overview -WorksheetName $Target -AutoFilter -AutoSize -BoldTopRow -tablename $Target -tablestyle medium9
+    $Target = "Check2_Missing_MFA"
+    $MissingMFA_ActiveAccount_RecentSignIns | Export-Excel -Path $File_Overview -WorksheetName $Target -AutoFilter -AutoSize -BoldTopRow -tablename $Target -tablestyle medium9
 
-    $Target = "Missing_MFA"
-    $MissingMFA | Export-Excel -Path $File_Overview -WorksheetName $Target -AutoFilter -AutoSize -BoldTopRow -tablename $Target -tablestyle medium9
+    $Target = "Check3_Missing_MFA_Not_Capable"
+    $MissingMFA_ActiveAccount_RecentSignIns_MfaNotCapable | Export-Excel -Path $File_Overview -WorksheetName $Target -AutoFilter -AutoSize -BoldTopRow -tablename $Target -tablestyle medium9
 
     #-----------------------------------
 
