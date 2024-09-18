@@ -89,6 +89,8 @@
 # Step 3: Get SignIn Events from Entra ID SignInLog
 #####################################################################
 
+    import-module Microsoft.Graph.Beta.Reports
+
     write-host ""
     Write-host "Step 3/8: Checking Sign-in logs for last $($LogDaysToSearch) day(s) - looking for interactive sign-ins"
 
@@ -104,7 +106,7 @@
             Write-host "  Searching for events for app [ $($Entry.AppName) ] ... Please Wait !"
 
             $AppId = [guid]$Entry.AppId
-            $Events = Get-MgAuditLogSignIn -Filter "(AppId eq '$($AppId)') and (createdDateTime ge $SearchDateFrom)" -All
+            $Events = Get-MgBetaAuditLogSignIn -Filter "(AppId eq '$($AppId)') and (createdDateTime ge $SearchDateFrom)" -All
 
             $TotalEvents = $TotalEvents + $Events.Count
 
